@@ -15,12 +15,13 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
     UpdateFailed,
 )
+from homeassistant.helpers.device_registry import DeviceEntryType
+from homeassistant.helpers.entity import DeviceInfo
 
 from . import DOMAIN, API_URL
 
@@ -40,12 +41,9 @@ async def async_setup_entry(
                     if response.status != 200:
                         raise UpdateFailed(f"Error {response.status} from API")
                     data = await response.json()
-                    
                     if not isinstance(data, dict) or "data" not in data:
                         raise UpdateFailed("Invalid data format received from API")
-                    
                     return data["data"]
-                    
         except asyncio.TimeoutError as err:
             raise UpdateFailed("Timeout fetching data") from err
         except Exception as err:
@@ -62,10 +60,9 @@ async def async_setup_entry(
     await coordinator.async_config_entry_first_refresh()
 
     entities = []
-    
     if coordinator.data:
         for water_data in coordinator.data:
-            if isinstance(water_data, dict) and "nameOfRiver" in water_data and "type" in water_data:
+            if isinstance(water_data, dict) and "nameOfRiver" in water_data and "type" in water_data and "avgTemp" in water_data:
                 entities.append(WaterTemperatureSensor(coordinator, water_data))
 
     async_add_entities(entities, True)
@@ -74,36 +71,28 @@ class WaterTemperatureSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
     _attr_device_class = SensorDeviceClass.TEMPERATURE
     _attr_state_class = SensorStateClass.MEASUREMENT
-    _attr_entity_registry_enabled_default = True
-    _attr_should_poll = False
-    _attr_entity_category = None
 
-    def __init__(
-        self,
-        coordinator: DataUpdateCoordinator,
-        water_data: dict,
-    ) -> None:
+    def __init__(self, coordinator: DataUpdateCoordinator, water_data: dict) -> None:
         super().__init__(coordinator)
         self._water_name = water_data["nameOfRiver"]
         self._water_type = water_data["type"]
-        self._attr_unique_id = f"magyar_vizek_{self._water_type}_{self._water_name.lower()}"
+        self._attr_unique_id = f"{DOMAIN}_{self._water_type}_{self._water_name.lower()}"
         self._attr_name = self._water_name
         self._attr_native_unit_of_measurement = water_data.get("unitOfMeasurement", "°C")
         
-        device_type = "Folyók" if self._water_type == "river" else "Tavak"
-        self._attr_device_info = {
-            "identifiers": {(DOMAIN, f"magyar_vizek_{self._water_type}")},
-            "name": device_type,
-            "manufacturer": "HungaroMet",
-            "model": "Vízhőmérséklet szenzor",
-            "sw_version": "1.0.0",
-        }
+        service_name = "Folyók" if self._water_type == "river" else "Tavak"
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, f"{DOMAIN}_{self._water_type}")},
+            name=service_name,
+            manufacturer="HungaroMet",
+            model="Vízhőmérséklet Szolgáltatás",
+            entry_type=DeviceEntryType.SERVICE
+        )
 
     @property
     def icon(self) -> str:
         if self.native_value is None:
             return "mdi:thermometer"
-            
         temp = float(self.native_value)
         if temp < 10:
             return "mdi:thermometer-low"
