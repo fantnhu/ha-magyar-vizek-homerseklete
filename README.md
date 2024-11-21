@@ -39,10 +39,14 @@ Az ikonok dinamikusan változnak a hőmérséklet függvényében:
 - 10-15°C között: mdi:thermometer
 - 15°C felett: mdi:thermometer-high
 
-## Adatforrás
+## 🤝 Közreműködés
 
-Az integráció a HungaroMet hivatalos API-ját használja a magyarországi vizek hőmérsékletének lekérdezéséhez.
+Ha hibát találsz vagy fejlesztési javaslatod van, kérlek nyiss egy [issue-t a GitHub oldalon](https://github.com/fantnhu/ha-magyar-vizek-homerseklete/issues/)
 
-## Támogatás
+## 📄 Licensz
 
-Hibajelentéseket és fejlesztési javaslatokat a GitHub-on várunk.
+Ez a projekt MIT licensz alatt áll. További információért lásd a LICENSE fájlt.
+
+## 🔗 Hasznos linkek
+
+- [Home Assistant közösség](https://community.home-assistant.io/)
