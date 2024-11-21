@@ -1,0 +1,14 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Az integráció már konfigurálva van"
+        },
+        "step": {
+            "user": {
+                "description": "A Magyar Vizek Hőmérséklete integráció adatait a HungaroMet biztosítja",
+                "title": "Magyar Vizek Hőmérséklete"
+            }
+        },
+        "title": "Magyar Vizek Hőmérséklete"
+    }
+}

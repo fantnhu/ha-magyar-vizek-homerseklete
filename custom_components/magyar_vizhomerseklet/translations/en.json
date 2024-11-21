@@ -1,0 +1,14 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Integration is already configured"
+        },
+        "step": {
+            "user": {
+                "description": "The Hungarian Water Temperature integration data is provided by HungaroMet",
+                "title": "Hungarian Water Temperature"
+            }
+        },
+        "title": "Hungarian Water Temperature"
+    }
+}
