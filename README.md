@@ -2,7 +2,7 @@
 
 Ez az integráció a magyarországi folyók és tavak vízhőmérsékletét jeleníti meg a Home Assistant rendszerben.
 
-## Funkciók
+## ✨ Funkciók
 
 - Valós idejű vízhőmérséklet adatok magyar folyókról és tavakról
 - Automatikus frissítés 30 percenként
@@ -10,7 +10,7 @@ Ez az integráció a magyarországi folyók és tavak vízhőmérsékletét jele
 - Dinamikus ikonok a hőmérséklet függvényében
 - Beállítás a felhasználói felületről
 
-## Telepítés
+## 🛠️ Telepítés
 
 1. Másolja a `custom_components/magyar_vizhomerseklet` mappát a Home Assistant `custom_components` könyvtárába
 2. Indítsa újra a Home Assistant-ot
@@ -19,7 +19,7 @@ Ez az integráció a magyarországi folyók és tavak vízhőmérsékletét jele
 5. Keressen rá: "Magyar Vizek Hőmérséklete"
 6. Kattintson a konfigurálás gombra
 
-## Használat
+## 🔄 Használat
 
 A telepítés után az integráció két szolgáltatást hoz létre:
 
