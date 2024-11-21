@@ -1,3 +1,4 @@
+![](https://raw.githubusercontent.com/fantnhu/ha-magyar-vizek-homerseklete/refs/heads/main/img/header_img.png)
 # Magyar Vizek Hőmérséklete Home Assistant Integráció
 
 Ez az integráció a magyarországi folyók és tavak vízhőmérsékletét jeleníti meg a Home Assistant rendszerben.
